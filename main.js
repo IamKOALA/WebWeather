@@ -61,7 +61,6 @@ function updateCity (weather, city, class_reg) {
     let rec_humidity = weather['main']['humidity']
     let rec_latitude = weather['coord']['lat']
     let rec_longitude = weather['coord']['lon']
-    console.log(weather)
 
     city.getElementsByClassName(`${class_reg}_name`)[0].textContent = rec_city_name
     city.getElementsByClassName(`${class_reg}_temp`)[0].innerHTML = `${Math.round(rec_temp)}°C`
@@ -134,12 +133,14 @@ add_button.addEventListener('submit', function (event) {
     event.preventDefault()
 })
 
-fav_cities.addEventListener('click', function (event) {
-    const cityId = event.target.closest('li').id.split('_')[1]
-    const cityName = event.target.closest('li').getElementsByClassName('fav_city_main')[0].textContent
+document.addEventListener('click', function (event) {
+    if (event.target.className.match("close_button")) {
+        const cityId = event.target.closest('li').id.split('_')[1]
+        const cityName = event.target.closest('li').getElementsByClassName('fav_city_main')[0].textContent
 
-    myStorage.removeItem(cityId)
-    deleteCity(cityId)
+        myStorage.removeItem(cityId)
+        deleteCity(cityId)
+    }
 })
 
 document.addEventListener('DOMContentLoaded', function () {
